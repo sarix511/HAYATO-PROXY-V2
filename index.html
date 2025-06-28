@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYATO PROXY V2 | Free Fire Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark: #0a0a0a;
+            --gray: #1a1a1a;
+            --accent: #FF4655;
+            --text: #f0f0f0;
+        }
+        body {
+            background-color: var(--dark);
+            background-image: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
+            color: var(--text);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container {
+            background-color: var(--gray);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(255,70,85,0.1);
+            width: 95%;
+            max-width: 450px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #ff7b00);
+        }
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--accent), #ff7b00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        .version {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        .input-box {
+            background: rgba(0,0,0,0.4);
+            border-radius: 6px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #252525;
+        }
+        .input-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: #ddd;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: white;
+            font-size: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .btn {
+            background: linear-gradient(45deg, var(--accent), #ff7b00);
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,70,85,0.3);
+        }
+        .loading {
+            display: none;
+            margin: 25px 0;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #111;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+            height: 8px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #ff7b00);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        .loading-text {
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .success {
+            display: none;
+        }
+        .success-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            color: #4CAF50;
+            animation: bounce 0.8s;
+        }
+        .success-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #4CAF50;
+        }
+        .success-message {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .copyright {
+            margin-top: 2rem;
+            color: #444;
+            font-size: 0.75rem;
+            border-top: 1px solid #252525;
+            padding-top: 1rem;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+        @keyframes pulse {
+            0% {opacity: 0.6;}
+            50% {opacity: 1;}
+            100% {opacity: 0.6;}
+        }
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">HAYATO PROXY</div>
+        <div class="version">PREMIUM SERVICES V2.5.3</div>
+        
+        <!-- Input Screen -->
+        <div id="input-screen">
+            <div class="input-box">
+                <div class="input-title">ENTER FREE FIRE UID</div>
+                <input type="text" id="uid-input" placeholder="e.g. 1234567890" maxlength="12">
+            </div>
+            <button class="btn" id="submit-btn">
+                <i class="fas fa-key"></i> PROCESS VERIFICATION
+            </button>
+            <div class="pulse" style="margin-top:15px;color:#555;font-size:0.8rem;">
+                Secure connection established <i class="fas fa-lock"></i>
+            </div>
+        </div>
+        
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <div class="loading-text" id="loading-text">Initializing systems...</div>
+        </div>
+        
+        <!-- Success Screen -->
+        <div id="success-screen" class="success">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="success-title">VERIFICATION COMPLETE</div>
+            <div class="success-message">
+                Account status: <span style="color:#4CAF50">Verified</span><br>
+                Security checks: <span style="color:#4CAF50">Passed</span><br>
+                System access: <span style="color:#4CAF50">Granted</span>
+            </div>
+            <button class="btn" id="home-btn">
+                <i class="fas fa-home"></i> RETURN TO DASHBOARD
+            </button>
+        </div>
+        
+        <div class="copyright">
+            © 2025 HAYATO SYSTEMS | NOT AFFILIATED WITH GARENA FREE FIRE
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const LOADING_PHRASES = [
+            "Connecting to secure servers...",
+            "Verifying account credentials...",
+            "Analyzing game data...",
+            "Checking security protocols...",
+            "Finalizing verification...",
+            "Preparing dashboard..."
+        ];
+        
+        // DOM Elements
+        const inputScreen = document.getElementById('input-screen');
+        const loadingScreen = document.getElementById('loading-screen');
+        const successScreen = document.getElementById('success-screen');
+        const progressBar = document.getElementById('progress-bar');
+        const loadingText = document.getElementById('loading-text');
+        const submitBtn = document.getElementById('submit-btn');
+        const homeBtn = document.getElementById('home-btn');
+        
+        // Submit Button Click
+        submitBtn.addEventListener('click', function() {
+            const uid = document.getElementById('uid-input').value.trim();
+            
+            if(!uid || uid.length < 9) {
+                alert("Please enter a valid Free Fire UID (9-12 digits)");
+                return;
+            }
+            
+            // Show loading screen
+            inputScreen.style.display = 'none';
+            loadingScreen.style.display = 'block';
+            
+            // Simulate loading process
+            let progress = 0;
+            let phraseIndex = 0;
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if(progress > 100) progress = 100;
+                progressBar.style.width = progress + '%';
+                
+                // Change loading text every few seconds
+                if(progress % 25 < 5) {
+                    phraseIndex = (phraseIndex + 1) % LOADING_PHRASES.length;
+                    loadingText.textContent = LOADING_PHRASES[phraseIndex];
+                }
+                
+                // When complete
+                if(progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        successScreen.style.display = 'block';
+                    }, 500);
+                }
+            }, 300);
+        });
+        
+        // Home Button Click
+        homeBtn.addEventListener('click', function() {
+            successScreen.style.display = 'none';
+            inputScreen.style.display = 'block';
+            document.getElementById('uid-input').value = '';
+            progressBar.style.width = '0%';
+        });
+    </script>
+</body>
+</html>
